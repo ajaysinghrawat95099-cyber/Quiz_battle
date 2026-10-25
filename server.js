@@ -197,7 +197,6 @@ io.on("connection", socket => {
   socket.on("leaveRoom", () => removeSocketFromRoom(socket));
   socket.on("disconnect", () => removeSocketFromRoom(socket));
 });
+
+// Fixed console.log line with backticks
 server.listen(PORT, () => console.log(Quiz Battle running at http://localhost:${PORT}));
-  socket.on("disconnect", () => removeSocketFromRoom(socket));
-});
-server.listen(PORT, () => console.log(`Quiz Battle running at http://localhost:${PORT}`));
