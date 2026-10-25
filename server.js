@@ -108,7 +108,6 @@ function removeSocketFromRoom(socket) {
   const room = rooms.get(code);
   const player = room.players.get(socket.id);
   if (player) {
-    // Keep disconnected players in the room briefly so a network hiccup can recover.
     player.connected = false;
     emitRoom(room);
     setTimeout(() => {
@@ -196,6 +195,9 @@ io.on("connection", socket => {
     if (room.answers.size>=room.players.size) finishQuestion(room);
   });
   socket.on("leaveRoom", () => removeSocketFromRoom(socket));
+  socket.on("disconnect", () => removeSocketFromRoom(socket));
+});
+server.listen(PORT, () => console.log(Quiz Battle running at http://localhost:${PORT}));
   socket.on("disconnect", () => removeSocketFromRoom(socket));
 });
 server.listen(PORT, () => console.log(`Quiz Battle running at http://localhost:${PORT}`));
