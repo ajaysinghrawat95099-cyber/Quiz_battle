@@ -108,6 +108,7 @@ function removeSocketFromRoom(socket) {
   const room = rooms.get(code);
   const player = room.players.get(socket.id);
   if (player) {
+    // Keep disconnected players in the room briefly so a network hiccup can recover.
     player.connected = false;
     emitRoom(room);
     setTimeout(() => {
@@ -197,6 +198,4 @@ io.on("connection", socket => {
   socket.on("leaveRoom", () => removeSocketFromRoom(socket));
   socket.on("disconnect", () => removeSocketFromRoom(socket));
 });
-
-// Fixed console.log line with backticks
 server.listen(PORT, () => console.log(Quiz Battle running at http://localhost:${PORT}));
