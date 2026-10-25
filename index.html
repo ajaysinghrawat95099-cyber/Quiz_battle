@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101126">
+  <title>Quiz Battle — Brain vs Brain</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="bg-glow glow-a"></div><div class="bg-glow glow-b"></div>
+  <main class="app">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Quiz Battle home"><span class="brand-icon">⚡</span><span>QUIZ<span class="brand-accent">BATTLE</span></span></a>
+      <span class="pill"><span class="live-dot"></span> REAL-TIME PARTY GAME</span>
+    </header>
+    <section id="home" class="screen hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow"><span>✦</span> THINK FAST. WIN BIG.</div>
+        <h1>Brain vs.<br><span class="gradient-text">Brain.</span></h1>
+        <p class="hero-sub">10 questions. 10 seconds each. One champion. Challenge your friends from any device.</p>
+        <div class="feature-row"><span>⚡ Speed bonus</span><span>👥 2–8 players</span><span>🏆 Live scores</span></div>
+      </div>
+      <div class="join-card">
+        <div class="card-spark">✦</div>
+        <h2>Ready to battle?</h2>
+        <p class="muted">Create a room or join your friends.</p>
+        <label for="nickname">YOUR NICKNAME</label>
+        <input id="nickname" maxlength="18" placeholder="e.g. QuizKing" autocomplete="nickname">
+        <button id="createBtn" class="btn btn-primary">＋ Create a room</button>
+        <div class="or"><span></span> OR JOIN FRIENDS <span></span></div>
+        <label for="roomCode">ROOM CODE</label>
+        <input id="roomCode" maxlength="6" placeholder="ABC123" class="code-input" autocomplete="off">
+        <button id="joinBtn" class="btn btn-secondary">Join room <span>→</span></button>
+        <div id="homeError" class="error" role="alert"></div>
+      </div>
+    </section>
+
+    <section id="lobby" class="screen hidden">
+      <div class="section-heading"><div><div class="eyebrow">THE BATTLE ROOM</div><h1>Squad <span class="gradient-text">assembled.</span></h1><p class="muted">Waiting for your challengers to get ready.</p></div><div class="room-code-card"><span>ROOM CODE</span><strong id="lobbyCode">------</strong><button id="copyCode" class="copy-btn">Copy code ⧉</button></div></div>
+      <div class="lobby-layout">
+        <div class="panel players-panel"><div class="panel-head"><h2>Players <span id="playerCount" class="count">0/8</span></h2><span class="live-label">● LIVE</span></div><div id="playerList" class="player-list"></div><div class="invite-note">↗ Share the room code with friends to invite them.</div></div>
+        <div class="panel rules-panel"><div class="rules-icon">⚔️</div><h2>Battle rules</h2><div class="rule"><span>🧠</span><div><b>10 questions</b><small>Mixed trivia categories</small></div></div><div class="rule"><span>⏱️</span><div><b>10 seconds each</b><small>Think fast, answer faster</small></div></div><div class="rule"><span>⚡</span><div><b>Up to 1,000 points</b><small>Correct + speed bonus</small></div></div><div class="rule"><span>🏆</span><div><b>Highest score wins</b><small>No points lost for wrong answers</small></div></div><button id="readyBtn" class="btn btn-secondary">✓ I'm ready</button><button id="startBtn" class="btn btn-primary hidden">Start battle 🚀</button><p id="lobbyHint" class="muted tiny">At least 2 players must be ready. The host starts the game.</p></div>
+      </div><button id="leaveLobby" class="text-btn">← Leave room</button>
+    </section>
+
+    <section id="game" class="screen hidden">
+      <div class="game-top"><div class="game-brand">⚡ QUIZ<span class="brand-accent">BATTLE</span></div><div class="game-meta"><span id="gameRoom" class="pill">ROOM ------</span><span id="questionCount" class="pill">QUESTION 1/10</span></div></div>
+      <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+      <div class="game-layout"><div class="question-column"><div class="question-meta"><span id="categoryTag" class="category-tag">SCIENCE</span><div class="timer-wrap"><span>⏱</span><strong id="timer">10</strong><small>SEC</small></div></div><h1 id="questionText">Question goes here?</h1><div id="answers" class="answers"></div><div id="gameMessage" class="game-message">Choose your answer before time runs out!</div><div id="revealFact" class="reveal-fact hidden"></div></div><aside class="panel scoreboard"><div class="panel-head"><h2>Leaderboard</h2><span class="live-label">● LIVE</span></div><div id="scoreList" class="score-list"></div><div id="answeredCount" class="answered-count"></div></aside></div>
+    </section>
+
+    <section id="results" class="screen hidden">
+      <div class="results-hero"><div class="eyebrow">BATTLE COMPLETE</div><div class="trophy-big">🏆</div><h1 id="winnerTitle">We have a champion!</h1><p id="winnerSub" class="muted">Amazing game, everyone.</p></div>
+      <div id="podium" class="podium"></div>
+      <div class="results-actions"><button id="playAgain" class="btn btn-primary">↻ Play again</button><button id="newRoom" class="btn btn-secondary">＋ New room</button></div>
+      <p class="muted tiny center">Same squad, new battle. Invite more friends next time!</p>
+    </section>
+    <div id="toast" class="toast" role="status"></div>
+    <footer>QUIZBATTLE <span>•</span> FRIENDS. FACTS. FRIENDLY FIRE.</footer>
+  </main>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
